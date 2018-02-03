@@ -44,6 +44,9 @@
                             <li><a href="{{ route('login') }}">Entrar</a></li>
                             <li><a href="{{ route('register') }}">Registro</a></li>
                         @else
+                            <li><a href="{{route('tests.index')}}">Cuestionarios</a></li>
+                            <li><a href="{{route('questions.index')}}">Preguntas</a></li>
+                            <li><a href="{{route('answers.index')}}">Respuestas</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->username }} <span class="caret"></span>
