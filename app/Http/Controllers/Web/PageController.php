@@ -30,7 +30,7 @@ class PageController extends Controller
     public function question_tests($id)
     {
         $question = Question::where('id', $id)->first();
-
+        
         $tests = Test::whereHas('questions', function($query) use($id){
             $query->where('question_id', $id);
         })
@@ -43,8 +43,8 @@ class PageController extends Controller
     public function user_questions($id)
     {
         $user = User::where('id', $id)->first();
-        $questions = Question::where('user_id', $user->id)->orderBy('id', 'ASC')->get();
+        $questions = Question::where('user_id', $user->id)->orderBy('id', 'ASC')->paginate(100);
         //dd($user);
-        return view('web.user_questions', compact('questions', 'user'));
+        return view('web.user_questions', compact('questions'));
     }
 }

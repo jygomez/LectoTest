@@ -6,8 +6,7 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading panel-title">
-            Detalles del cuestionario {{$test->id}}: <strong>{{$test->test_name}}</strong>
-            <a href='{{route("test_list")}}' class="pull-right">Atrás</a>
+            Detalles del cuestionario <strong>{{$test->test_name}}</strong>
         </div>
 
         <div class="panel-body">
