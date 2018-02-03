@@ -6,15 +6,8 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading panel-title">
-            <h3>Pregunta {{$question->id}}</h3>
-            <br>
-            Enunciado: {{$question->question_header}}
-            <br>
-            @if($question->question_image)
-                <img src="{{$question->question_image}}" class="img-responsive">
-            @endif
-            <br>
-            Pregunta: {{$question->question_text}}
+            <a class="pull-right" href="{{ url()->previous() }}">Atrás</a>
+            @include('web.partials.questions')
         </div>
 
         <div class="panel-body">
