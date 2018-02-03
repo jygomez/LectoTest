@@ -6,20 +6,14 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading panel-title">
-            Catálogo de preguntas del usuario
+            <a class="pull-right" href="{{ url()->previous() }}">Atrás</a>
+            Catálogo de preguntas de {{$user->username}}
         </div>
 
         <div class="panel-body">
-            @forelse($questions as $question)
-            <p>
-                {{$question->question_header}}
-                <br>            
-            @empty
-                <div class="col-6">
-                    Esta usuario no ha creado ninguna pregunta aún.
-                </div>
-            </p>
-            @endforelse            
+            @foreach($questions as $question)
+                @include('web.templates.questions')
+            @endforeach         
         </div>
 
         <div class="panel-footer">

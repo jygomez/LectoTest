@@ -11,7 +11,7 @@
 |
 */
 
-Route::redirect('/', 'test_list');
+Route::redirect('/home', 'test_list');
 
 Auth::routes();
 

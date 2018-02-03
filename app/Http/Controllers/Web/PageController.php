@@ -34,7 +34,7 @@ class PageController extends Controller
         $tests = Test::whereHas('questions', function($query) use($id){
             $query->where('question_id', $id);
         })
-        ->orderBy('id', 'ASC')->paginate(100);
+        ->orderBy('id', 'ASC')->get();
 
         return view('web.question_tests', compact('tests', 'question'));
     }
@@ -43,8 +43,8 @@ class PageController extends Controller
     public function user_questions($id)
     {
         $user = User::where('id', $id)->first();
-        $questions = Question::where('user_id', $user->id)->orderBy('id', 'ASC')->paginate(100);
+        $questions = Question::where('user_id', $user->id)->orderBy('id', 'ASC')->get();
         //dd($user);
-        return view('web.user_questions', compact('questions'));
+        return view('web.user_questions', compact('questions', 'user'));
     }
 }

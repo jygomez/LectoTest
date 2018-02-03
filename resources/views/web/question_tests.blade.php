@@ -6,15 +6,9 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading panel-title">
-            <h3>Pregunta {{$question->id}}</h3>
+            <a href="{{ url()->previous() }}">Atrás</a>
             <br>
-            Enunciado: {{$question->question_header}}
-            <br>
-            @if($question->question_image)
-                <img src="{{$question->question_image}}" class="img-responsive">
-            @endif
-            <br>
-            Pregunta: {{$question->question_text}}
+            @include('web.templates.questions')
         </div>
 
         <div class="panel-body">
