@@ -14,14 +14,17 @@ class TestController extends Controller
     {
         $this->middleware('auth');
     }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() 
     {
-        return 'Hola';
+        $test_list = Test::orderBy('id','ASC')->paginate(2);
+        //dd($test_list);
+        return view('admin.tests.index', compact('test_list'));
     }
 
     /**
@@ -29,9 +32,9 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() // muestra el formulario para crearlo
     {
-        //
+        return view('admin.test.create');
     }
 
     /**
@@ -40,9 +43,12 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) // salva los datos insertados en el formulario, es decir, mete el test en la BD.
     {
-        //
+        $test = Test::create($request->all());
+
+        return redirect()->route('admin.test.edit', $test->id)
+                         ->with('info', 'Cuestionario.$test.creado con éxito');
     }
 
     /**
@@ -53,7 +59,9 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        //
+        $test = Test::where('id');
+
+        return view('admin.test.show', compact('test'));
     }
 
     /**
@@ -64,7 +72,9 @@ class TestController extends Controller
      */
     public function edit($id)
     {
-        //
+        $test = Test::where('id');
+
+        return view('admin.test.edit', compact('test'));
     }
 
     /**
@@ -76,7 +86,11 @@ class TestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $test = Test::where('id');
+        $test->fill($request->all())->save();
+
+        return redirect()->route('admin.test.edit', $test->id)
+                         ->with('info', 'Cuestionario.$test.actualizado con éxito');
     }
 
     /**
@@ -87,6 +101,8 @@ class TestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $test = Test::find($id)->delete();
+
+        return back()->with('info', 'Cuestionario.$test.actualizado correctamente');
     }
 }
