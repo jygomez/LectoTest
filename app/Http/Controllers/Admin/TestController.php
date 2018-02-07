@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Request\
-use Illuminate\Http\Requests\TestStoreRequest;
-use Illuminate\Http\Requests\TestUpdateRequest;
+use Iluminate\Http\Request;
+use App\Http\Requests\TestStoreRequest;
+use App\Http\Requests\TestUpdateRequest;
 use App\Http\Controllers\Controller;
 
 use App\Test;
@@ -24,7 +24,7 @@ class TestController extends Controller
      */
     public function index() 
     {
-        $test_list = Test::orderBy('id','ASC')->paginate(2);
+        $test_list = Test::orderBy('id','ASC')->paginate(5);
         //dd($test_list);
         return view('admin.tests.index', compact('test_list'));
     }
@@ -36,7 +36,7 @@ class TestController extends Controller
      */
     public function create() // muestra el formulario para crearlo
     {
-        return view('admin.test.create');
+        return view('admin.tests.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class TestController extends Controller
 
         $test = Test::create($request->all());
 
-        return redirect()->route('admin.test.edit', $test->id)
+        return redirect()->route('admin.tests.edit', $test->id)
                          ->with('info', 'Cuestionario.$test.creado con éxito');
     }
 
@@ -65,7 +65,7 @@ class TestController extends Controller
     {
         $test = Test::where('id');
 
-        return view('admin.test.show', compact('test'));
+        return view('admin.tests.show', compact('test'));
     }
 
     /**
@@ -78,7 +78,7 @@ class TestController extends Controller
     {
         $test = Test::where('id');
 
-        return view('admin.test.edit', compact('test'));
+        return view('admin.tests.edit', compact('test'));
     }
 
     /**
@@ -96,7 +96,7 @@ class TestController extends Controller
 
         $test->fill($request->all())->save();
 
-        return redirect()->route('admin.test.edit', $test->id)
+        return redirect()->route('admin.tests.edit', $test->id)
                          ->with('info', 'Cuestionario.$test.actualizado con éxito');
     }
 

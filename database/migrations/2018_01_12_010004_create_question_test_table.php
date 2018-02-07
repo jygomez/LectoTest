@@ -22,8 +22,12 @@ class CreateQuestionTestTable extends Migration
             $table->integer('question_value')->unsigned();            
 
             // Relaciones
-            $table->foreign('test_id')->references('id')->on('tests');
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('test_id')->references('id')->on('tests')
+                            ->onDelete('set null')
+                            ->onUpdate('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')
+                            ->onDelete('set null')
+                            ->onUpdate('cascade');
         });
     }
     /**
