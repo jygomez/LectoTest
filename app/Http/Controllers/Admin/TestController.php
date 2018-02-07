@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Request\
+use Illuminate\Http\Requests\TestStoreRequest;
+use Illuminate\Http\Requests\TestUpdateRequest;
 use App\Http\Controllers\Controller;
 
 use App\Test;
@@ -43,8 +45,10 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) // salva los datos insertados en el formulario, es decir, mete el test en la BD.
+    public function store(TestStoreRequest $request) // salva los datos insertados en el formulario, es decir, mete el test en la BD.
     {
+        // Validaciones
+
         $test = Test::create($request->all());
 
         return redirect()->route('admin.test.edit', $test->id)
@@ -84,9 +88,12 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TestUpdateRequest $request, $id)
     {
+        // Validaciones
+
         $test = Test::where('id');
+
         $test->fill($request->all())->save();
 
         return redirect()->route('admin.test.edit', $test->id)
@@ -103,6 +110,6 @@ class TestController extends Controller
     {
         $test = Test::find($id)->delete();
 
-        return back()->with('info', 'Cuestionario.$test.actualizado correctamente');
+        return back()->with('info', 'Cuestionario.$test.eliminado correctamente');
     }
 }
