@@ -23,10 +23,10 @@ class CreateQuestionTestTable extends Migration
 
             // Relaciones
             $table->foreign('test_id')->references('id')->on('tests')
-                            ->onDelete('set null')
+                            ->onDelete('cascade')
                             ->onUpdate('cascade');
             $table->foreign('question_id')->references('id')->on('questions')
-                            ->onDelete('set null')
+                            ->onDelete('cascade')
                             ->onUpdate('cascade');
         });
     }

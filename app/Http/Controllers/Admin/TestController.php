@@ -8,6 +8,7 @@ use App\Http\Requests\TestUpdateRequest;
 use App\Http\Controllers\Controller;
 
 use App\Test;
+use App\User;
 
 class TestController extends Controller
 {
@@ -63,8 +64,8 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        $test = Test::where('id');
-
+        $test = Test::where('id', $id)->first();
+        // dd($test);
         return view('admin.tests.show', compact('test'));
     }
 
@@ -76,7 +77,7 @@ class TestController extends Controller
      */
     public function edit($id)
     {
-        $test = Test::where('id');
+        $test = Test::where('id', $id)->first();
 
         return view('admin.tests.edit', compact('test'));
     }
@@ -92,7 +93,7 @@ class TestController extends Controller
     {
         // Validaciones
 
-        $test = Test::where('id');
+        $test = Test::where('id', $id)->first();
 
         $test->fill($request->all())->save();
 
@@ -110,6 +111,6 @@ class TestController extends Controller
     {
         $test = Test::find($id)->delete();
 
-        return back()->with('info', 'Cuestionario.$test.eliminado correctamente');
+        return back()->with('info', 'Cuestionario eliminado correctamente');
     }
 }

@@ -15,8 +15,7 @@ class Test extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'test_user')
-                    ->withPivot('user_points', 'total_points', 'approved')
-                    ->withTimestamps();
+                    ->withPivot('user_points', 'total_points', 'approved');
     }
 
     
