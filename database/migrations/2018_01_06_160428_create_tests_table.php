@@ -20,7 +20,7 @@ class CreateTestsTable extends Migration
             
             $table->string('test_name', 256);
             $table->integer('min_to_approve')->unsigned();
-            $table->boolean('time_control');
+            $table->boolean('time_control')->default(false)->nullable();
             $table->time('time')->nullable();
             $table->integer('update_test_user_id')->unsigned();
 

@@ -25,8 +25,8 @@ class TestStoreRequest extends FormRequest
     {
         return [
             'test_name'     => 'required|unique:tests,test_name',
-            'min_to_aprove' => 'required',
-            'test_value'    => 'required',
+            'min_to_approve' => 'required|numeric',
+            'test_value'    => 'required|numeric',
         ];
     }
 }

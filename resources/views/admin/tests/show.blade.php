@@ -5,15 +5,19 @@
     <div class='container'>
         <div class='row'>
             <div class='col-md-8 col-md-offset-2'>
-                <div class='panel panel-default'>
+                <div class='panel panel-primary'>
                     
                     <div class='panel-heading'>
-                       Detalles del cuestionario {{$test->test_name}}
+                        <h4>Detalles del cuestionario <strong>{{$test->test_name}}</strong></h4>
                     </div>                
                 
 
                     <div class='panel-body'>
                         <p><strong>Nombre: </strong>{{$test->test_name}}</p>
+                        <p>
+                            <strong>Cantidad de preguntas: </strong>{{$test->questions->count()}}
+                            <small><small><a href="">ver preguntas</a></small></small>
+                        </p>
                         <p><strong>Creado por: </strong>{{$test->users->get(0)->username}}</p>
                         <p><strong>Valor del cuestionario: </strong>{{$test->test_value}}</p>
                         <p><strong>Mínimo aprobado: </strong>{{$test->min_to_approve}}</p>

@@ -25,8 +25,8 @@ class TestUpdateRequest extends FormRequest
     {
         return [
             'test_name'     => 'required|unique:tests,test_name,' . $this->test,
-            'min_to_aprove' => 'required',
-            'test_value'    => 'required',
+            'min_to_approve' => 'required|numeric',
+            'test_value'    => 'required|numeric',
         ];
     }
 }

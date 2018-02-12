@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Iluminate\Http\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TestStoreRequest;
 use App\Http\Requests\TestUpdateRequest;
 use App\Http\Controllers\Controller;
@@ -48,12 +49,23 @@ class TestController extends Controller
      */
     public function store(TestStoreRequest $request) // salva los datos insertados en el formulario, es decir, mete el test en la BD.
     {
-        // Validaciones
+        //$user_id = Auth::user()->id;
+        $user_id = Auth::id();
+        //dd($user_id);
+        $test = Test::create(
+            [
+                'user_id' => $user_id,
+                'test_name' => $request->input('test_name'),
+                'test_value' => $request->input('test_value'),
+                'min_to_approve' => $request->input('min_to_approve'),
+                'time' => $request->input('time'),
+                'time_control' => $request->input('time_control'),
+                'update_test_user_id' => $user_id,
+            ]
+        );
 
-        $test = Test::create($request->all());
-
-        return redirect()->route('admin.tests.edit', $test->id)
-                         ->with('info', 'Cuestionario.$test.creado con éxito');
+        return redirect()->route('tests.edit', $test->id)
+                         ->with('info', 'Cuestionario creado con éxito');
     }
 
     /**
@@ -64,7 +76,7 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        $test = Test::where('id', $id)->first();
+        $test = Test::find($id);
         // dd($test);
         return view('admin.tests.show', compact('test'));
     }
@@ -77,7 +89,7 @@ class TestController extends Controller
      */
     public function edit($id)
     {
-        $test = Test::where('id', $id)->first();
+        $test = Test::find($id);
 
         return view('admin.tests.edit', compact('test'));
     }
@@ -93,11 +105,11 @@ class TestController extends Controller
     {
         // Validaciones
 
-        $test = Test::where('id', $id)->first();
+        $test = Test::find($id);
 
         $test->fill($request->all())->save();
 
-        return redirect()->route('admin.tests.edit', $test->id)
+        return redirect()->route('tests.edit', $test->id)
                          ->with('info', 'Cuestionario.$test.actualizado con éxito');
     }
 
