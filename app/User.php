@@ -43,8 +43,7 @@ class User extends Authenticatable
     public function tests()
     {
         return $this->belongsToMany(Test::class, 'test_user')
-                    ->withPivot('user_points', 'total_points', 'approved')
-                    ->withTimestamps();
+                    ->withPivot('user_points', 'total_points', 'approved');
     }
 
 

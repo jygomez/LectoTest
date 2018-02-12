@@ -13,12 +13,13 @@
                 
 
                     <div class='panel-body'>
+                        <p><strong>ID: </strong>{{$test->id}}</p>
                         <p><strong>Nombre: </strong>{{$test->test_name}}</p>
                         <p>
                             <strong>Cantidad de preguntas: </strong>{{$test->questions->count()}}
                             <small><small><a href="">ver preguntas</a></small></small>
                         </p>
-                        <p><strong>Creado por: </strong>{{$test->users->get(0)->username}}</p>
+                        <p><strong>Creado por: </strong>{{$user->username}}</p>
                         <p><strong>Valor del cuestionario: </strong>{{$test->test_value}}</p>
                         <p><strong>Mínimo aprobado: </strong>{{$test->min_to_approve}}</p>
                         <p><strong>Control de tiempo: </strong>

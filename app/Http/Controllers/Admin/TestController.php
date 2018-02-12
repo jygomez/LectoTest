@@ -77,8 +77,10 @@ class TestController extends Controller
     public function show($id)
     {
         $test = Test::find($id);
-        // dd($test);
-        return view('admin.tests.show', compact('test'));
+
+        $user = User::find($test->user_id);
+        // dd($user);
+        return view('admin.tests.show', compact('test', 'user'));
     }
 
     /**
