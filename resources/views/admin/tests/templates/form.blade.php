@@ -5,12 +5,12 @@
 
 <div class="form-group">
     {{ Form::label('test_value', 'Valor del cuestionario') }}
-    {{ Form::number('test_value', '0') }}
+    {{ Form::number('test_value') }}
 </div>
 
 <div class="form-group">
     {{ Form::label('min_to_approve', 'Valor aprobado') }}
-    {{ Form::number('min_to_approve', '0') }}
+    {{ Form::number('min_to_approve') }}
 </div>
 
 <div class="form-group">

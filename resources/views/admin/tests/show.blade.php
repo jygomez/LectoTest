@@ -22,11 +22,12 @@
                         <p><strong>Creado por: </strong>{{$user->username}}</p>
                         <p><strong>Valor del cuestionario: </strong>{{$test->test_value}}</p>
                         <p><strong>Mínimo aprobado: </strong>{{$test->min_to_approve}}</p>
-                        <p><strong>Control de tiempo: </strong>
+                        <p>
                             @if($test->time_control == 0)
-                                No.
+                                <strong>Control de tiempo: </strong> No.
                             @else
-                                {{$test->time}}
+                                <p><strong>Control de tiempo: </strong> Si.</p>
+                                <strong>Duración del examen: </strong>{{$test->time}}
                             @endif
                         </p>
                         <p><strong>Fecha creación: </strong>{{$test->created_at}}</p>

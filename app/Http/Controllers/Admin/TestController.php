@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TestStoreRequest;
 use App\Http\Requests\TestUpdateRequest;
-use App\Http\Controllers\Controller;
 
 use App\Test;
 use App\User;

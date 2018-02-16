@@ -8,35 +8,44 @@
                 <div class='panel panel-default'>
 
                     <div class='panel-heading'>
-                        Lista de cuestionarios
-                        <a href="{{route('tests.create')}}" class='btn btn-sm btn-primary pull-right'>Crear</a>
+                        Lista de preguntas
+                        <a href="{{route('questions.create')}}" class='btn btn-sm btn-primary pull-right'>Crear</a>
                     </div>                
                 
                     <div class='panel-body'>
-                        @if($test_list->count() == 0)
-                            No hay cuestionarios creados.
+                        @if($question_list->count() == 0)
+                            No hay preguntas creadas.
                         @else
                             <table class='table table-striped table-hover'>
                                 <thead>
                                     <tr>
                                         <th width='10px'>Id</th>
-                                        <th>Nombre</th>
+                                        <th>Encabezado</th>
+                                        <th>Pregunta</th>
                                         <th colspan='3'>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($test_list as $test)
+                                    @foreach($question_list as $question)
                                         <tr>
-                                            <td>{{$test->id}}</td>
-                                            <td>{{$test->test_name}}</td>
+                                            <td>{{$question->id}}</td>
+                                            <td>
+                                            @if($question->question_header)
+                                                {{$question->question_header}}
+                                            @else
+                                                <div class="text-info">Pregunta sin encabezado.</div>
+                                            @endif
+                                            </td>
+
+                                            <td>{{$question->question_text}}</td>
                                             <td width="10px">
-                                                <a href="{{route('tests.show', $test->id)}}" class='btn btn-sm btn-default'>ver</a>
+                                                <a href="{{route('questions.show', $question->id)}}" class='btn btn-sm btn-default'>ver</a>
                                             </td>
                                             <td width="10px">
-                                                <a href="{{route('tests.edit', $test->id)}}" class='btn btn-sm btn-default'>editar</a>
+                                                <a href="{{route('questions.edit', $question->id)}}" class='btn btn-sm btn-default'>editar</a>
                                             </td>
                                             <td width="10px">
-                                                {!! Form::open(['route' => ['tests.destroy', $test->id], 'method'=>'DELETE']) !!}
+                                                {!! Form::open(['route' => ['questions.destroy', $question->id], 'method'=>'DELETE']) !!}
                                                     <button class='btn btn-sm btn-danger'>
                                                         eliminar
                                                     </button>
@@ -48,7 +57,7 @@
                             </table>                        
                         @endif
 
-                        {{$test_list->render()}}
+                        {{$question_list->render()}}
 
                     </div>
 

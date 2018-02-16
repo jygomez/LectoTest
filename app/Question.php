@@ -9,6 +9,9 @@ class Question extends Model
 {
     protected $table = 'questions';
     protected $guarded = [];
+    protected $fillable = [
+        'user_id', 'question_header', 'question_text', 'question_image', 'update_question_user_id',
+    ];
 
     public function tests()
     {

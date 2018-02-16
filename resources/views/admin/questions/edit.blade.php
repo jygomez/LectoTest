@@ -8,14 +8,15 @@
                 <div class='panel panel-default'>
                     
                     <div class='panel-heading'>
-                       Editar cuestionario
+                       Editar pregunta
                     </div>                
                 
 
                     <div class='panel-body'>
                         <!-- Con esta sintaxis se indica que se va a utilizar un formulario -->
-                       {!! Form::model($test, ['route'=>['tests.update', $test->id], 'method'=>'PUT']) !!}
-                            @include('admin.tests.templates.form')
+                       {!! Form::model($question, ['route'=>['questions.update', $question->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data']) !!}
+                            @include('admin.questions.templates.form')
+                            <img width='500px' src='{{ Storage::url($question->question_image) }}'>
                        {!! Form::close() !!}
                     </div>
 
