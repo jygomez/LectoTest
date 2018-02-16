@@ -21,7 +21,7 @@
                         
                         @if($question->question_image)
                             <p>
-                                <img width='500px' src="{{Storage::url($question->question_image)}}" class="img-responsive">
+                                <img class='img-responsive' width='500px' src="{{Storage::url($question->question_image)}}">
                             </p>
                         @else
                             <p>Pregunta sin imagen.</p>

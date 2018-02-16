@@ -25,7 +25,7 @@ class QuestionUpdateRequest extends FormRequest
     {
         return [
             'question_text'     => 'required|unique:questions,question_text,' . $this->question,
-            // 'question_image'    => 'image',
+            'question_image'    => 'image',
         ];
     }
 }

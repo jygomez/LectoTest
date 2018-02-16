@@ -76,7 +76,7 @@ class QuestionController extends Controller
 
 
         return redirect()->route('questions.edit', $question->id)
-                         ->with('info', 'Pregunta creada con éxito');
+                         ->with('info', 'Pregunta creada satifactoriamente con ID: '.$question->id);
     }
 
     /**
@@ -138,7 +138,7 @@ class QuestionController extends Controller
         ]);
 
         return redirect()->route('questions.edit', $question->id)
-                         ->with('info', 'Pregunta.$question.actualizada con éxito');
+                         ->with('info', 'Pregunta '.$question->id.' actualizada con éxito');
     }
 
     /**
@@ -149,8 +149,9 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
+        $question_to_delete = Question::find($id)->id;
         $question = Question::find($id)->delete();
 
-        return back()->with('info', 'Pregunta eliminada correctamente');
+        return back()->with('info', 'Pregunta '.$question_to_delete.' eliminada correctamente');
     }
 }
