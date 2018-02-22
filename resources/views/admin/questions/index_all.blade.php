@@ -8,11 +8,14 @@
                 <div class='panel panel-default'>
 
                     <div class='panel-heading'>
-                        Mi catálogo de preguntas
+                        Listado de preguntas
                         <a href="{{route('questions.create')}}" class='btn btn-sm btn-primary pull-right'>Crear</a>
                     </div>                
                 
                     <div class='panel-body'>
+                    {{$question_list->render()}}
+                    <a class='pull-right' href="{{route('questions.index')}}">Volver a tu catálogo</a>
+
                         @if($question_list->count() == 0)
                             No hay preguntas creadas.
                         @else
@@ -22,7 +25,6 @@
                                         <th width='10px'>Id</th>
                                         <th>Encabezados</th>
                                         <th>Preguntas</th>
-                                        <th colspan='3'>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,19 +40,6 @@
                                             </td>
 
                                             <td>{{$question->question_text}}</td>
-                                            <td width="10px">
-                                                <a href="{{route('questions.show', $question->id)}}" class='btn btn-sm btn-default'>ver</a>
-                                            </td>
-                                            <td width="10px">
-                                                <a href="{{route('questions.edit', $question->id)}}" class='btn btn-sm btn-default'>editar</a>
-                                            </td>
-                                            <td width="10px">
-                                                {!! Form::open(['route' => ['questions.destroy', $question->id], 'method'=>'DELETE']) !!}
-                                                    <button class='btn btn-sm btn-danger'>
-                                                        eliminar
-                                                    </button>
-                                                {!! Form::close() !!}
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -58,9 +47,9 @@
                         @endif
 
                         {{$question_list->render()}}
-                        
+
                         <p>
-                            <a class='pull-right' href="{{route('all_questions_list')}}">Ver todas las preguntas</a>
+                            <a class='pull-right' href="{{route('questions.index')}}">Volver a tu catálogo</a>
                         </p>
 
                     </div>

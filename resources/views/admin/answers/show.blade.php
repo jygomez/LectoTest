@@ -8,15 +8,15 @@
                 <div class='panel panel-primary'>
                     
                     <div class='panel-heading'>
-                       Editar cuestionario
+                        <h4>Detalles de la pregunta <strong>{{$answer->answer_name}}</strong></h4>
                     </div>                
                 
 
                     <div class='panel-body'>
-                        <!-- Con esta sintaxis se indica que se va a utilizar un formulario -->
-                       {!! Form::model($test, ['route'=>['tests.update', $test->id], 'method'=>'PUT']) !!}
-                            @include('admin.tests.templates.form')
-                       {!! Form::close() !!}
+                        <p><strong>ID: </strong>{{$answer->id}}</p>
+                        <p><strong>Respuesta: </strong>{{$answer->answer_text}}</p>
+                        <p><strong>Creado por: </strong>{{$user->username}}</p>
+                        <p><strong>Fecha creación: </strong>{{$answer->created_at}}</p>
                     </div>
 
                 </div>

@@ -27,10 +27,21 @@ class QuestionController extends Controller
      */
     public function index() 
     {
-        $question_list = Question::orderBy('id','ASC')->paginate(10);
+        $question_list = Question::orderBy('id','ASC')
+        ->where('user_id', auth()->user()->id)
+        ->paginate(10);
         //dd($question_list);
         return view('admin.questions.index', compact('question_list'));
     }
+
+
+    public function index_all() 
+    {
+        $question_list = Question::orderBy('id','ASC')->paginate(20);
+        //dd($question_list);
+        return view('admin.questions.index_all', compact('question_list'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

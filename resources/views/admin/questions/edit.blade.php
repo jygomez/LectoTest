@@ -16,7 +16,15 @@
                         <!-- Con esta sintaxis se indica que se va a utilizar un formulario -->
                        {!! Form::model($question, ['route'=>['questions.update', $question->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data']) !!}
                             @include('admin.questions.templates.form')
-                            <img class="img-responsive" width='500px' src='{{ Storage::url($question->question_image) }}'>
+
+                            @if($question->question_image)
+                                <p>
+                                    <img class='img-responsive' width='500px' src="{{Storage::url($question->question_image)}}">
+                                </p>
+                            @else
+                                <p>Pregunta sin imagen.</p>
+                            @endif
+
                        {!! Form::close() !!}
                     </div>
 

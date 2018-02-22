@@ -5,17 +5,17 @@
     <div class='container'>
         <div class='row'>
             <div class='col-md-8 col-md-offset-2'>
-                <div class='panel panel-primary'>
+                <div class='panel panel-default'>
                     
                     <div class='panel-heading'>
-                       Editar cuestionario
+                       Editar respuesta
                     </div>                
                 
 
                     <div class='panel-body'>
                         <!-- Con esta sintaxis se indica que se va a utilizar un formulario -->
-                       {!! Form::model($test, ['route'=>['tests.update', $test->id], 'method'=>'PUT']) !!}
-                            @include('admin.tests.templates.form')
+                       {!! Form::model($answer, ['route'=>['answers.update', $answer->id], 'method'=>'PUT']) !!}
+                            @include('admin.answers.templates.form')
                        {!! Form::close() !!}
                     </div>
 

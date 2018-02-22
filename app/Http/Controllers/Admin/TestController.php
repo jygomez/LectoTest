@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TestStoreRequest;
 use App\Http\Requests\TestUpdateRequest;
 
-use App\Test;
 use App\User;
+use App\Test;
+use App\Question;
+use App\Question_Test;
 
 class TestController extends Controller
 {
@@ -26,10 +28,22 @@ class TestController extends Controller
      */
     public function index() 
     {
-        $test_list = Test::orderBy('id','ASC')->paginate(5);
+        $test_list = Test::orderBy('id','ASC')
+        ->where('user_id',auth()->user()->id)
+        ->paginate(5);
         //dd($test_list);
         return view('admin.tests.index', compact('test_list'));
     }
+
+
+    
+    public function index_all() 
+    {
+        $test_list = Test::orderBy('id','ASC')->paginate(20);
+        //dd($test_list);
+        return view('admin.tests.index_all', compact('test_list'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -61,11 +75,10 @@ class TestController extends Controller
                 'time' => $request->input('time'),
                 'time_control' => $request->input('time_control'),
                 'update_test_user_id' => $user_id,
-            ]
-        );
+            ]);
 
-        return redirect()->route('tests.edit', $test->id)
-                         ->with('info', 'Cuestionario creado con éxito');
+        return redirect()->route('show_questions_to_add', $test->id)
+                         ->with('info', 'Cuestionario creado satifactoriamente con ID: '.$test->id);
     }
 
     /**
@@ -108,11 +121,20 @@ class TestController extends Controller
         // Validaciones
 
         $test = Test::find($id);
+        $user_id = Auth::id();
 
-        $test->fill($request->all())->save();
+        $test->update(
+        [
+            'test_name' => $request->input('test_name'),
+            'test_value' => $request->input('test_value'),
+            'min_to_approve' => $request->input('min_to_approve'),
+            'time' => $request->input('time'),
+            'time_control' => $request->input('time_control'),
+            'update_test_user_id' => $user_id,
+        ]);
 
         return redirect()->route('tests.edit', $test->id)
-                         ->with('info', 'Cuestionario.$test.actualizado con éxito');
+                         ->with('info', 'Cuestionario '.$test->test_name.' actualizado con éxito');
     }
 
     /**
@@ -123,8 +145,43 @@ class TestController extends Controller
      */
     public function destroy($id)
     {
+        $test_to_delete = Test::find($id)->test_name;
         $test = Test::find($id)->delete();
 
-        return back()->with('info', 'Cuestionario eliminado correctamente');
+        return back()->with('info', 'Cuestionario '.$test_to_delete.' eliminado correctamente');
+    }
+
+
+    public function show_questions_test($id)
+    {
+        $test = Test::where('id', $id)->first();
+
+        return view('admin.tests.questions_test', compact('test'));
+    }
+
+
+    public function show_questions_to_test($id)
+    {
+        $test = Test::find($id);
+        $question_list = Question::orderBy('id','ASC')->paginate(20);
+
+        return view('admin.tests.show_questions_to_add', compact('test', 'question_list'));
+    }
+
+
+    public function add_questions_to_test(Request $req, $test_id, $quest_id)
+    {
+        $test = Test::find($test_id);
+        $question = Question::find($quest_id);
+        $insert = Question_Test::create([
+            'question_value' => $req->input('question_value'),
+            'test_id' => $test->id,
+            'question_id' => $question->id,
+        ]);
+        // dd($insert->question_value);
+        // $test->questions()->attach($question->id, ['question_value' => $qv]);
+        $question_list = Question::orderBy('id','ASC')->paginate(20);
+
+        return view('admin.tests.show_questions_to_add', compact('test', 'question', 'question_list'));
     }
 }
