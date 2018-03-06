@@ -50,7 +50,7 @@
                                     @else
                                         <small>Sin preguntas</small>
                                         <td>
-                                            <a href='{{route('add_questions', $test->id)}}' class='btn btn-sm btn-default'>agregar</a>                                        
+                                            <a href='{{route('show_questions_to_add', $test->id)}}' class='btn btn-sm btn-default'>agregar</a>                                        
                                         </td>
                                     @endif
                                 </td>

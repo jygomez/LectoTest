@@ -169,19 +169,22 @@ class TestController extends Controller
     }
 
 
-    public function add_questions_to_test(Request $req, $test_id, $quest_id)
+    public function add_questions_to_test(Request $request, $test_id, $quest_id)
     {
+        $question_list = Question::orderBy('id','ASC')->paginate(20);
+        
         $test = Test::find($test_id);
         $question = Question::find($quest_id);
-        $insert = Question_Test::create([
-            'question_value' => $req->input('question_value'),
-            'test_id' => $test->id,
-            'question_id' => $question->id,
+        
+        Question_Test::create([
+            'question_value' => $request->input('question_value'),
+            'test_id' => $test_id,
+            'question_id' => $quest_id,
         ]);
         // dd($insert->question_value);
         // $test->questions()->attach($question->id, ['question_value' => $qv]);
-        $question_list = Question::orderBy('id','ASC')->paginate(20);
 
-        return view('admin.tests.show_questions_to_add', compact('test', 'question', 'question_list'));
+        return redirect()->route('show_questions_to_add', $test->id)
+                         ->with('info', 'Pregunta '.$question->id.' agregada con éxito al cuestionario '.$test->id);
     }
 }

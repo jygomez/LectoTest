@@ -51,8 +51,7 @@ class User extends Authenticatable
     public function answer_question_tests()
     {
         return $this->belongsToMany(Answer_Question_Test::class, 'answer_question_test_user', 'user_id', 'answer_question_test_id')
-                    ->withPivot('selected_answers', 'answer_points')
-                    ->withTimestamps();
+                    ->withPivot('selected_answers', 'answer_points');
     }
 
 

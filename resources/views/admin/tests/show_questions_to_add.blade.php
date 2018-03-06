@@ -89,6 +89,7 @@
                         </tbody>
                     </table>
                     {{$question_list->render()}}
+                    <a href="{{route('questions_test', $test->id)}}" class='btn btn-sm btn-primary pull-right'>Guardar</a>
                 </div>
             </div>
         </div>

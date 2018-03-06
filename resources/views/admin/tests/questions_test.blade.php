@@ -56,7 +56,7 @@
                                 </td>
 
                                 <td width="10px">
-                                    <a href="{{route('questions.edit', $question->id)}}" class='btn btn-sm btn-default'>respuestas</a>
+                                    <a href="{{route('show_answers_to_add', [$test->id, $question->id])}}" class='btn btn-sm btn-default'>respuestas</a>
                                 </td>
 
                                 <td width="10px">

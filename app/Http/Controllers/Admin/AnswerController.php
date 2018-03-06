@@ -11,6 +11,10 @@ use App\Http\Requests\AnswerUpdateRequest;
 use App\User;
 use App\Test;
 use App\Answer;
+use App\Question;
+use App\Question_Test;
+use App\Answer_Question_Test;
+
 
 class AnswerController extends Controller
 {
@@ -136,5 +140,87 @@ class AnswerController extends Controller
         $answer = Answer::find($id)->delete();
 
         return back()->with('info', 'Pregunta '.$answer_to_delete.' eliminada correctamente');
+    }
+
+
+    public function show_answers_to_test($test_id, $quest_id)
+    {
+        $test = Test::find($test_id);
+        $question = Question::find($quest_id);
+        $answers_list = Answer::orderBy('id','ASC')->paginate(20);
+
+        $qt_element = Question_Test::where([
+            ['test_id', $test_id],
+            ['question_id', $quest_id],
+        ])->first();
+        
+        $aqt_answer_id = Answer_Question_Test::where('question_test_id', $qt_element->id)->select('answer_id')->get();
+        
+        // Devuelve la colección de respuestas de la tabla Answers a partir de los id que se pasan desde la variable de arriba (aqt_answer_id).
+        $answers = Answer::find($aqt_answer_id); 
+        
+        // $aqt_id = Answer_Question_Test::where('question_test_id', $qt_element->id)->select('id');
+
+        return view('admin.answers.show_answers_to_add', compact('test', 'question', 'answers', 'answers_list'));
+    }
+
+
+    public function add_answers_to_test(Request $request, $answer_id)
+    {
+        $answers_list = Answer::orderBy('id','ASC')->paginate(20);        
+        
+        // Haciendo uso del metodo union() se puede crear un query con multiples condiciones, en este caso 2.
+        // $q_id = Question_Test::where('question_id', $request->quest_id);
+        // $t_id = Question_Test::where('test_id', $request->test_id)->union($q_id)->first();
+
+        // Esta sintaxis provee de otra forma de crear un query con multiples condiciones
+        $qt_id = Question_Test::where([
+            ['test_id', $request->test_id],
+            ['question_id', $request->quest_id],
+        ])->first();
+
+        $test_id = $request->test_id;
+        $test = Test::find($test_id);
+
+        $question_id = $request->quest_id;
+        $question = Question::find($question_id);
+
+        $answer = Answer::find($answer_id);
+
+        Answer_Question_Test::create([
+            'question_test_id' => $qt_id->id,
+            'answer_id' => $answer->id,
+            'correct_answer' => 0,
+        ]);
+        // dd($insert->question_value);
+        // $test->questions()->attach($question->id, ['question_value' => $qv]);
+
+        return redirect()->route('show_answers_to_add', [$test->id, $question->id])
+                         ->with('info', 'Respuesta '.$answer->id.' agregada con éxito a la pregunta '.$question->id);
+    }
+
+
+    public function update_aqt_table(Request $request, $id)
+    {
+        $correct_answer = Answer::find($id);
+
+        $quetest_id = Question_Test::where([
+            ['test_id', $request->test_id],
+            ['question_id', $request->quest_id],
+        ])->first();
+
+        $aqt_element = Answer_Question_Test::where([
+            ['question_test_id', $quetest_id->id],
+            ['answer_id', $id],
+        ])->first();
+        
+        $aqt_element->update([
+            'question_test_id' => $aqt_element->question_test_id,
+            'answer_id' => $id,
+            'correct_answer' => 1,
+        ]);
+
+        return redirect()->route('show_answers_to_add', [$request->test_id, $request->quest_id])
+                         ->with('info', 'La respuesta '.$correct_answer->id.' se ha seleccionado como correcta.');
     }
 }
