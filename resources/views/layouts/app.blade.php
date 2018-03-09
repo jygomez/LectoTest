@@ -40,14 +40,19 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
+                        @if(Auth::guest())
                             <li><a href="{{ route('login') }}">Entrar</a></li>
                             <li><a href="{{ route('register') }}">Registro</a></li>
                         @else
-                            <li><a href="{{route('tests.index')}}">Cuestionarios</a></li>
-                            <li><a href="{{route('questions.index')}}">Preguntas</a></li>
-                            <li><a href="{{route('answers.index')}}">Respuestas</a></li>
-                            <li class="dropdown">
+                            @can('is_admin')
+                                <li><a href="{{route('tests.index')}}">Cuestionarios</a></li>  
+                                <li><a href="{{route('questions.index')}}">Preguntas</a></li>
+                                <li><a href="{{route('answers.index')}}">Respuestas</a></li>
+                            @endcan
+                            @can('is_student')
+                                <li><a href="{{route('test_list')}}">Cuestionarios</a></li>
+                            @endcan
+                                <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>

@@ -9,13 +9,20 @@ use App\Question_Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PageController extends Controller
+class WebController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function test_list()
     {
         $test_list = Test::orderBy('id','ASC')->paginate(2);
         //dd($test_list);
-        return view('web.test_list', compact('test_list'));
+        return view('web.index', compact('test_list'));
     }
 
 

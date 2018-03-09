@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,18 +32,27 @@ class AnswerController extends Controller
      */
     public function index() 
     {
-        $answer_list = Answer::orderBy('id','ASC')
-        ->where('user_id', auth()->user()->id)
-        ->paginate(10);
-        //dd($answer_list);
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
+        $user_id =auth()->user()->id;
+        $answer_list = Answer::orderBy('id','ASC')->where('user_id', $user_id)->paginate(10);
+
         return view('admin.answers.index', compact('answer_list'));
     }
 
 
     public function index_all() 
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
         $answer_list = Answer::orderBy('id','ASC')->paginate(20);
-        //dd($answer_list);
+
         return view('admin.answers.index_all', compact('answer_list'));
     }
 
@@ -55,6 +65,11 @@ class AnswerController extends Controller
      */
     public function create() // muestra el formulario para crearlo
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
         return view('admin.answers.create');
     }
 
@@ -104,6 +119,11 @@ class AnswerController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+        
         $answer = Answer::find($id);
 
         return view('admin.answers.edit', compact('answer'));
@@ -145,6 +165,11 @@ class AnswerController extends Controller
 
     public function show_answers_to_test($test_id, $quest_id)
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
         $test = Test::find($test_id);
         $question = Question::find($quest_id);
         $answers_list = Answer::orderBy('id','ASC')->paginate(20);

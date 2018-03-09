@@ -19,9 +19,9 @@
                             <table class='table table-striped table-hover'>
                                 <thead>
                                     <tr>
-                                        <th width='10px'>Id</th>
-                                        <th>Nombre</th>
-                                        <th colspan='3'>&nbsp;</th>
+                                        <th width='5%'>Id</th>
+                                        <th width='60%'>Nombre</th>
+                                        <th width='35%' class='text-center' colspan='2' class='text-center'>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,20 +31,17 @@
 
                                             <td>{{$test->test_name}}</td>
 
-                                            <td width="10px">
+                                            <td>
                                                 <a href="{{route('tests.show', $test->id)}}" class='btn btn-sm btn-default'>ver</a>
-                                            </td>
-
-                                            <td width="10px">
                                                 <a href="{{route('tests.edit', $test->id)}}" class='btn btn-sm btn-default'>editar</a>
-                                            </td>
-
-                                            <td width="10px">
-                                                {!! Form::open(['route' => ['tests.destroy', $test->id], 'method'=>'DELETE']) !!}
-                                                    <button class='btn btn-sm btn-danger'>
-                                                        eliminar
-                                                    </button>
-                                                {!! Form::close() !!}
+                                                
+                                                <td>
+                                                    {!! Form::open(['route' => ['tests.destroy', $test->id], 'method'=>'DELETE']) !!}
+                                                        <button class='btn btn-sm btn-danger'>
+                                                            eliminar
+                                                        </button>
+                                                    {!! Form::close() !!}
+                                                </td>
                                             </td>
                                         </tr>
                                     @endforeach

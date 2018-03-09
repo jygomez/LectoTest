@@ -22,8 +22,13 @@ class CreateAnswerQuestionTestTable extends Migration
             $table->boolean('correct_answer');
             
             // Relaciones
-            $table->foreign('question_test_id')->references('id')->on('question_test');
-            $table->foreign('answer_id')->references('id')->on('answers');
+            $table->foreign('question_test_id')->references('id')->on('question_test')
+                                               ->onDelete('cascade')
+                                               ->onUpdate('cascade');
+                                               
+            $table->foreign('answer_id')->references('id')->on('answers')
+                                        ->onDelete('cascade')
+                                        ->onUpdate('cascade');
         });
     }
 

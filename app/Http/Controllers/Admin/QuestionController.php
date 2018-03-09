@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use App\Http\Requests\QuestionUpdateRequest;
 
 use App\Question;
 use App\User;
+use App\Test;
 
 class QuestionController extends Controller
 {
@@ -27,18 +29,27 @@ class QuestionController extends Controller
      */
     public function index() 
     {
-        $question_list = Question::orderBy('id','ASC')
-        ->where('user_id', auth()->user()->id)
-        ->paginate(10);
-        //dd($question_list);
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
+        $user_id = auth()->user()->id;
+        $question_list = Question::orderBy('id','ASC')->where('user_id', $user_id)->paginate(10);
+
         return view('admin.questions.index', compact('question_list'));
     }
 
 
     public function index_all() 
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
         $question_list = Question::orderBy('id','ASC')->paginate(20);
-        //dd($question_list);
+
         return view('admin.questions.index_all', compact('question_list'));
     }
 
@@ -50,6 +61,11 @@ class QuestionController extends Controller
      */
     public function create() // muestra el formulario para crearlo
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+
         return view('admin.questions.create');
     }
 
@@ -113,6 +129,11 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::allows('is_student'))
+        {
+            return 'Acceso no autorizado';
+        }
+        
         $question = Question::find($id);
 
         return view('admin.questions.edit', compact('question'));

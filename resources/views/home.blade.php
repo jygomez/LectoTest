@@ -10,6 +10,10 @@
                 <div class="panel-body">
                     You are logged in!
                 </div>
+
+                <div>
+                    <a href="{{route('test_list')}}">Rendir Cuestionarios</a>
+                </div>
             </div>
         </div>
     </div>

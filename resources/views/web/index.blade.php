@@ -20,7 +20,7 @@
                 @else
                 Sin control de tiempo.
                 @endif
-                <a href='{{route('test', $test->id)}}' class="pull-right">Ver cuestionario</a>
+                
             </div>
     </div>
 

@@ -22,8 +22,9 @@
                             <table class='table table-striped table-hover'>
                                 <thead>
                                     <tr>
-                                        <th width='10px'>Id</th>
-                                        <th>Respuestas</th>
+                                        <th width='5%'>Id</th>
+                                        <th width='65%'>Respuestas</th>
+                                        <th class='text-center' colspan='2'>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,6 +32,22 @@
                                         <tr>
                                             <td>{{$answer->id}}</td>
                                             <td>{{$answer->answer_text}}</td>
+
+                                            <td width='25%'>
+                                                <a href="{{route('answers.show', $answer->id)}}" class='btn btn-sm btn-default'>ver</a>
+
+                                                @can('update_answer', $answer)
+                                                    <a href="{{route('answers.edit', $answer->id)}}" class='btn btn-sm btn-default'>editar</a>
+                                                
+                                                    <td width='5%'>
+                                                        {!! Form::open(['route' => ['answers.destroy', $answer->id], 'method'=>'DELETE']) !!}
+                                                            <button class='btn btn-sm btn-danger'>
+                                                                eliminar
+                                                            </button>
+                                                        {!! Form::close() !!}
+                                                    </td>
+                                                @endcan
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

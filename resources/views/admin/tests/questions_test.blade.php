@@ -16,7 +16,7 @@
                 <table class='table table-striped table-hover'>
                     <thead>
                         <tr>
-                            <th class='text-center' width='10px'>Id</th>
+                            <th class='text-center'>Id</th>
                             <th class='text-center'>Pregunta</th>
                             <th class='text-center'>Imagen</th>
                             <th class='text-center' width='10px'>Valor</th>
@@ -54,23 +54,25 @@
                                     <small><a href="{{route('user_questions', $question->user->id)}}">{{$question->user->username}}</a><br>
                                     <small>{{$question->created_at}}</small></small>
                                 </td>
-
+                                
                                 <td width="10px">
                                     <a href="{{route('show_answers_to_add', [$test->id, $question->id])}}" class='btn btn-sm btn-default'>respuestas</a>
                                 </td>
 
-                                <td width="10px">
-                                    <a href="{{route('questions.edit', $question->id)}}" class='btn btn-sm btn-default'>editar</a>
-                                </td>
+                                @can('update_question', $question)
+                                    <td width="10px">
+                                        <a href="{{route('questions.edit', $question->id)}}" class='btn btn-sm btn-default'>editar</a>
+                                    </td>
 
-                                <td width="10px">
-                                    {!! Form::open(['route' => ['questions.destroy', $question->id], 'method'=>'DELETE']) !!}
-                                        <button class='btn btn-sm btn-danger'>
-                                            eliminar
-                                        </button>
-                                    {!! Form::close() !!}
-                                </td>
-
+                                    <td width="10px">
+                                        {!! Form::open(['route' => ['questions.destroy', $question->id], 'method'=>'DELETE']) !!}
+                                            <button class='btn btn-sm btn-danger'>
+                                                eliminar
+                                            </button>
+                                        {!! Form::close() !!}
+                                    </td>
+                                @endcan
+                            </tr>
                         @empty
                         <div class="col-6">
                             No hay preguntas para mostrar.
@@ -81,7 +83,9 @@
 
                 <a href="{{route('tests.show', $test->id)}}" class="pull-right"><small>Volver a detalles del cuestionario</small></a>
                 <br><br>
-                <a href="{{route('show_questions_to_add', $test->id)}}" class='btn btn-sm btn-primary pull-right'>agregar preguntas</a>
+                @can('update_test', $test)
+                    <a href="{{route('show_questions_to_add', $test->id)}}" class='btn btn-sm btn-primary pull-right'>agregar preguntas</a>
+                @endcan
             </div>
 
         </div>

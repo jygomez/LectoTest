@@ -26,7 +26,9 @@ class CreateQuestionsTable extends Migration
             $table->timestamps();
 
             // Relaciones
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+                                      ->onDelete('cascade')
+                                      ->onUpdate('cascade');
         });
     }
 

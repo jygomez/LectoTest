@@ -41,19 +41,24 @@
                                     <small>{{$test->created_at}}</small></small> 
                                 </td>
 
+                                
                                 <td class="text-center">
                                     @if($test->questions->count() > 0)
                                         <strong>{{$test->questions->count()}}</strong>
-                                        <td>
-                                            <a href='{{route('questions_test', $test->id)}}' class='btn btn-sm btn-default'>ver</a>
-                                        </td>
                                     @else
                                         <small>Sin preguntas</small>
-                                        <td>
-                                            <a href='{{route('show_questions_to_add', $test->id)}}' class='btn btn-sm btn-default'>agregar</a>                                        
-                                        </td>
                                     @endif
                                 </td>
+
+                                @can('is_admin')
+                                <td>
+                                    @if($test->questions->count() > 0)
+                                        <a href='{{route('questions_test', $test->id)}}' class='btn btn-sm btn-default'>ver</a>
+                                    @else
+                                        <a href='{{route('show_questions_to_add', $test->id)}}' class='btn btn-sm btn-default'>agregar</a>                                        
+                                    @endif
+                                </td>
+                                @endcan
 
                             </tbody>
                        
