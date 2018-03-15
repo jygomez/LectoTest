@@ -79,17 +79,17 @@ class TestController extends Controller
     public function store(TestStoreRequest $request) // salva los datos insertados en el formulario, es decir, mete el test en la BD.
     {
         //$user_id = Auth::user()->id;
-        $user_id = Auth::id();
+        //$user_id = Auth::id();
         
         $test = Test::create(
             [
-                'user_id' => $user_id,
+                'user_id' => Auth::id(),
                 'test_name' => $request->input('test_name'),
                 'test_value' => $request->input('test_value'),
                 'min_to_approve' => $request->input('min_to_approve'),
                 'time' => $request->input('time'),
                 'time_control' => $request->input('time_control'),
-                'update_test_user_id' => $user_id,
+                'update_test_user_id' => Auth::id(),
             ]);
 
         return redirect()->route('show_questions_to_add', $test->id)
@@ -139,7 +139,7 @@ class TestController extends Controller
     {
         // Validaciones
 
-        $user_id = Auth::id();
+        //$user_id = Auth::id();
         $test = Test::find.($id);
 
         $test->update(
@@ -149,7 +149,7 @@ class TestController extends Controller
             'min_to_approve' => $request->input('min_to_approve'),
             'time' => $request->input('time'),
             'time_control' => $request->input('time_control'),
-            'update_test_user_id' => $user_id,
+            'update_test_user_id' => Auth::id(),
         ]);
 
         return redirect()->route('tests.edit', $test->id)

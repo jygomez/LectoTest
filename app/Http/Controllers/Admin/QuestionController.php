@@ -34,8 +34,8 @@ class QuestionController extends Controller
             return 'Acceso no autorizado';
         }
 
-        $user_id = auth()->user()->id;
-        $question_list = Question::orderBy('id','ASC')->where('user_id', $user_id)->paginate(10);
+        //$user_id = auth()->user()->id;
+        $question_list = Question::orderBy('id','ASC')->where('user_id', Auth::id())->paginate(10);
 
         return view('admin.questions.index', compact('question_list'));
     }
@@ -78,15 +78,15 @@ class QuestionController extends Controller
     public function store(QuestionStoreRequest $request) // salva los datos insertados en el formulario, es decir, mete el question en la BD.
     {
         // 2 formas para obtener el id del usuario logueado
-        $user_id = Auth::id();
+        //$user_id = Auth::id();
         //$user_id = Auth::user()->id;
 
         $question = Question::create(
             [
-                'user_id' => $user_id,
+                'user_id' => Auth::id(),
                 'question_header' => $request->input('question_header'),
                 'question_text' => $request->input('question_text'),
-                'update_question_user_id' => $user_id,
+                'update_question_user_id' => Auth::id(),
             ]);
             
         if($request->hasFile('question_image'))
@@ -151,7 +151,7 @@ class QuestionController extends Controller
 
         $question = Question::find($id);
         
-        $user_id = Auth::id();
+        //$user_id = Auth::id();
 
         if($request->hasFile('question_image'))
         {
@@ -166,7 +166,7 @@ class QuestionController extends Controller
         $question->update([
             'question_header' => $request->input('question_header'),
             'question_text' => $request->input('question_text'),
-            'update_question_user_id' => $user_id,
+            'update_question_user_id' => Auth::id(),
         ]);
 
         return redirect()->route('questions.edit', $question->id)

@@ -37,8 +37,8 @@ class AnswerController extends Controller
             return 'Acceso no autorizado';
         }
 
-        $user_id =auth()->user()->id;
-        $answer_list = Answer::orderBy('id','ASC')->where('user_id', $user_id)->paginate(10);
+        //$user_id =auth()->user()->id;
+        $answer_list = Answer::orderBy('id','ASC')->where('user_id', Auth::id())->paginate(10);
 
         return view('admin.answers.index', compact('answer_list'));
     }
@@ -82,13 +82,13 @@ class AnswerController extends Controller
     public function store(AnswerStoreRequest $request) // salva los datos insertados en el formulario, es decir, mete el answer en la BD.
     {
         //$user_id = Auth::user()->id;
-        $user_id = Auth::id();
+        //$user_id = Auth::id();
         //dd($user_id);
         $answer = Answer::create(
             [
-                'user_id' => $user_id,
+                'user_id' => Auth::id(),
                 'answer_text' => $request->input('answer_text'),
-                'update_answer_user_id' => $user_id,
+                'update_answer_user_id' => Auth::id(),
             ]
         );
 

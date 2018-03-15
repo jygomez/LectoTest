@@ -40,8 +40,7 @@ class WebController extends Controller
         
         $tests = Test::whereHas('questions', function($query) use($id){
             $query->where('question_id', $id);
-        })
-        ->orderBy('id', 'ASC')->get();
+        })->orderBy('id', 'ASC')->get();
 
         return view('web.question_tests', compact('tests', 'question'));
     }

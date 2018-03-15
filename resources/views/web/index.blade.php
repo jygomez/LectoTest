@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
 
@@ -12,17 +12,21 @@
             </div>
             
             <div class="panel-body">
-            <div>
-                Mínimo para aprobar: {{ $test->min_to_approve }}                
+                <div>
+                    Mínimo para aprobar: {{ $test->min_to_approve }}                
                 </div>
-                @if($test->time_control == 1)
-                    Tiempo para rendir: {{$test->time}}
-                @else
-                Sin control de tiempo.
-                @endif
-                
+
+                <div>
+                    @if($test->time_control == 1)
+                        Tiempo para rendir: {{$test->time}}
+                    @else
+                        Sin control de tiempo.
+                    @endif
+                </div>
+
+                <a class='btn btn-sm btn-primary pull-right' href="{{route('show_test', $test->id)}}">Rendir cuestionario</a>    
             </div>
-    </div>
+        </div>
 
     @empty
 		<div class="col-6">

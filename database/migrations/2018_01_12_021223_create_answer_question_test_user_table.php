@@ -19,7 +19,7 @@ class CreateAnswerQuestionTestUserTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('answer_question_test_id')->unsigned();
             
-            $table->boolean('selected_answers');
+            $table->boolean('selected_answers')->default(true);
             $table->integer('answer_points')->unsigned();
             $table->timestamps();
             
