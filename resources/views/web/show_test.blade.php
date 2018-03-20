@@ -14,6 +14,7 @@
                                 {!! Form::open(['route'=>['take_test', $test->id, $question->id], 'method'=>'POST']) !!}
                                 <input type='hidden' name='test_id' id='test_id' value={{$test->id}}>
                                 <input type='hidden' name='quest_id' id='quest_id' value={{$question->id}}>
+                                
                                     <h4>Pregunta con ID {{$question->id}}</h4>
                                     <h5><p class='text-center'>Encabezado:</p> <p class='text-center'>{{$question->question_header}}</p></h5>
                                     <img class="img-thumbnail" src='{{$question->question_image}}'>

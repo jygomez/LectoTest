@@ -15,6 +15,7 @@ class Answer_Question_Test extends Pivot
     public function users()
     {
         return $this->belongsToMany(User::class, 'answer_question_test_user', 'answer_question_test_id', 'user_id')
-                    ->withPivot('selected_answers', 'answer_points');
+                    ->withPivot('selected_answers', 'answer_points')
+                    ->withTimestamps();
     }
 }

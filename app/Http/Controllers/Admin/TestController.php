@@ -34,8 +34,8 @@ class TestController extends Controller
             return 'Acceso no autorizado';
         }
 
-        $user_id = auth()->user()->id;
-        $test_list = Test::orderBy('id','ASC')->where('user_id', $user_id)->paginate(5);
+        // $user_id = auth()->user()->id;
+        $test_list = Test::orderBy('id','ASC')->where('user_id', Auth::id())->paginate(5);
         
         return view('admin.tests.index', compact('test_list'));
     }
@@ -140,7 +140,7 @@ class TestController extends Controller
         // Validaciones
 
         //$user_id = Auth::id();
-        $test = Test::find.($id);
+        $test = Test::find($id);
 
         $test->update(
         [

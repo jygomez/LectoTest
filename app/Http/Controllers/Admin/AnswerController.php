@@ -229,13 +229,13 @@ class AnswerController extends Controller
     {
         $correct_answer = Answer::find($id);
 
-        $quetest_id = Question_Test::where([
+        $qt = Question_Test::where([
             ['test_id', $request->test_id],
             ['question_id', $request->quest_id],
         ])->first();
 
         $aqt_element = Answer_Question_Test::where([
-            ['question_test_id', $quetest_id->id],
+            ['question_test_id', $qt->id],
             ['answer_id', $id],
         ])->first();
         

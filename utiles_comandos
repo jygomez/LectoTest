@@ -1,0 +1,136 @@
+﻿
+Crear una tabla
+php artisan make:migration nombre_de_la_tabla --create
+
+
+
+FLUJO LARAVEL
+1.- (OPCIONAL) Desarrollar una suite de pruebas (test).
+creación del fichero de pruebas: 
+php artisan make:test nombre_test
+
+Para ejecutar los test:
+vendor/bin/phpunit
+
+2.- Crear el Model
+php artisan make:model nombre_modelo -m
+
+*Se usa la opción -m para que se cree el archivo de migración relacionado al modelo.
+
+3.- Crear las migraciones
+Crear nueva tabla
+php artisan make:migration nombre_migracion  --create nombre_tabla
+
+Agregar una columna a una tabla
+php artisan make:migration nombre_de_la_migración --table nombre_tabla_a_modificar
+
+
+4.- Ejecutar las migraciones
+php artisan migrate
+
+5.- Crear las rutas y los controllers.
+php artisan make:controller nombre_controller
+
+4.- Crear las vistas
+
+_________________________________________________________________________
+
+OTROS COMANDOS
+1.- Crear sistema de Loggin (registro, inicio de sesión y recuperación de pass estándar)
+php artisan make:auth
+
+_________________________________________________________________________
+
+2.- TINKER
+php artisan tinker
+
+Para crear un registro en una tabla.
+factory(App\"nombre_modelo"::class)->create();
+
+Para crear más de un registro en una tabla se agrega un 2do parámetro al método "factory".
+factory(App\"nombre_modelo"::class, "cant_registros")->create();
+Ej - Crear 10 registros en la tabla users: 
+factory(App\User::class, 10)->create();
+
+ATTACH
+Para hacer "ATTACH" de una pregunta a un examen con columnas adicionales a las claves foraneas.
+$test=App\Test::find("id_test");
+$test->questions()->attach("id_question", ['"nombre_columna1"'=>10, '"nombre_columna2"'=>valor_columna])
+
+Para ver las preguntas de un cuestionario
+$test->questions
+
+_________________________________________________________________________
+
+3.- Eliminar los datos de la BD.
+php artisan migrate:refresh
+
+_________________________________________________________________________
+
+4.- Generar datos en la BD con el seed
+php artisan db:seed
+
+_________________________________________________________________________
+
+5.- Hacer Rollback de todas las migrations y después ejecutarlas (Elimina y vuelve a crear toda la BD)
+php artisan migrate:refresh
+
+_________________________________________________________________________
+
+6.- Hacer Rollback de todas las migrations y después ejecutarlas (Elimina y vuelve a crear toda la BD)
+Pero además cuando crea la BD de nuevo, la crea con datos aleatorios.
+php artisan migrate:refresh --seed
+
+_________________________________________________________________________
+
+7.- Cuando se eliminan las migraciones manualmente, laravel muestra error al correr el make:migration nuevamente, para solucionar este problema se debe correr el siguiente comando:
+composer dump-autoload
+
+_________________________________________________________________________
+
+8.- Para modificar migraciones (supongamos que tenemos una tabla creada a la que le haremos todos los cambios y que se llamará "profiles").
+Renombrar la tabla: 
+Schema::rename('profiles', 'nombre_nuevo');
+
+Eliminar la tabla: 
+Schema::drop('profiles');
+
+Agregar nuevas columnas:
+Schema::table('profiles', function ($table) {
+   $table->string(‘address');
+});
+
+Agregar nueva/s columna/s después de una columna específica: 
+Schema::table('profiles', function ($table) {
+   $table->string('address')->after('phone');
+});
+
+Cambiar el tipo o los atributos de una columna:
+Schema::table('profiles', function ($table) {
+   $table->string('comments', 100)->change();
+});
+
+Renombrar a una columna: 
+Schema::table('profiles', function ($table) {
+   $table->renameColumn('nombre_anterior', 'nombre_nuevo');
+});
+
+Eliminar una columna:
+Schema::table('profiles', function ($table) {
+   $table->dropColumn('phone');
+});
+
+Agregar una llave foranea: 
+Schema::table('posts', function ($table) {
+   $table->integer('user_id')->unsigned();
+   $table->foreign('user_id')->references('id')->on('users');
+});
+
+Eliminar una llave foranea:
+$table->dropForeign('posts_user_id_foreign');
+
+Luego hay que configurar el método down de forma tal que en él se haga todo lo contrario a las operaciones realizadas con el método up; esto para cuando se haga migrate:rollback.
+_________________________________________________________________________
+
+NOTAS IMPORTANTES
+1.- Los controladores son los que permiten enviar contenido a las vistas.
