@@ -14,7 +14,7 @@ class User_TestsTableSeeder extends Seeder
     {
         factory(App\User::class, 30)->create()->each(function(App\User $user){
             
-            $user->tests()->attach(rand(1,10), ['user_points' => rand(1,100), 'total_points' => rand(1,100), 'approved' => rand(0,1)]);
+            $user->tests()->attach(rand(1,10), ['user_points' => rand(1,100), 'total_points' => rand(1,100), 'approved' => rand(0,1), 'calification' => rand(1,100)]);
         });
     }
 }

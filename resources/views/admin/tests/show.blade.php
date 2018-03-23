@@ -6,10 +6,10 @@
         <div class='row'>
             <div class='col-md-8 col-md-offset-2'>
                 <div class='panel panel-primary'>
-                    
                     <div class='panel-heading'>
                         <h4>Detalles del cuestionario {{$test->id}}: <strong>"{{$test->test_name}}"</strong></h4>
                     </div>
+
 
                     <div class='panel-body'>
                         <table class='table table-striped table-hover'>
@@ -40,7 +40,6 @@
                                     <small><a href="{{route('tests.index')}}">{{$user->username}}</a> <br> 
                                     <small>{{$test->created_at}}</small></small> 
                                 </td>
-
                                 
                                 <td class="text-center">
                                     @if($test->questions->count() > 0)
@@ -59,11 +58,14 @@
                                     @endif
                                 </td>
                                 @endcan
-
                             </tbody>
-                       
+                        </table>
                     </div>
 
+
+                    <div class="panel-footer">
+                        <div class='text-center'><a href="{{route('show_test_student', $test->id)}}">Ver examinados</a></div>
+                    </div>
                 </div>
                 
             </div>

@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\QuestionStoreRequest;
 use App\Http\Requests\QuestionUpdateRequest;
 
-use App\Question;
 use App\User;
 use App\Test;
+use App\Question;
+
 
 class QuestionController extends Controller
 {
@@ -34,7 +35,7 @@ class QuestionController extends Controller
             return 'Acceso no autorizado';
         }
 
-        //$user_id = auth()->user()->id;
+        //$user_id = Auth()->user()->id;
         $question_list = Question::orderBy('id','ASC')->where('user_id', Auth::id())->paginate(10);
 
         return view('admin.questions.index', compact('question_list'));

@@ -39,8 +39,19 @@
                                         </div>
                                     </div>
                                     <hr>
+
                                 {!! Form::close() !!}
                             @endforeach
+                        </div>
+
+                        <div class='panel-footer'>
+                            {!! Form::open(['route' => ['calification', $test->id, Auth()->user()->id], 'method'=>'POST']) !!}
+                                <div class='text-center'>
+                                    <button class='btn btn-sm btn-primary'>
+                                        Finalizar
+                                    </button>
+                                </div>
+                            {!! Form::close() !!}
                         </div>
                 </div>
             </div>

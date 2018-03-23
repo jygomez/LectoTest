@@ -2,21 +2,31 @@
 
 namespace App\Http\Controllers\Web;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 use App\Test;
 use App\User;
 use App\Answer;
 use App\Question;
 use App\Question_Test;
-use Illuminate\Http\Request;
 use App\Answer_Question_Test;
-// use App\Answer_Question_Test_User;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+
 
 class StudentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function show_test($id)
     {
+        $user = Auth::user();
+
         $test = Test::find($id);
         $questions = Question::whereHas('tests', function($query) use($id){
             $query->where('test_id', $id);
@@ -35,8 +45,8 @@ class StudentController extends Controller
 
             $qt_answers->push($qt_ans);
         }
-        //dd($qt_answers->all());
-        return view('web.show_test', compact('test', 'questions', 'qt_answers'));
+
+        return view('web.show_test', compact('test', 'questions', 'qt_answers', 'user'));
     }
 
 
@@ -66,7 +76,6 @@ class StudentController extends Controller
 
                 $correct_ans = $aqt_element->correct_answer;
                 $aqtu_element = $user->answer_question_tests()->where('answer_question_test_id', $aqt_element->id)->first();
-                // dd($aqtu_element);
                 if($correct_ans === $aqtu_element->pivot->selected_answers)
                 {
                     $user->answer_question_tests()->updateExistingPivot($aqt_element->id, [

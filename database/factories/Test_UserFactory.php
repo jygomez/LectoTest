@@ -9,5 +9,6 @@ $factory->define(Model::class, function (Faker $faker) {
         'user_points' => rand(1,150),
         'total_point' => rand(1, 150),
         'approved' => $faker->boolean(),
+        'calification' => rand(1, 150),
     ];
 });

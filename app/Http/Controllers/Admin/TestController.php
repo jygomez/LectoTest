@@ -13,6 +13,8 @@ use App\User;
 use App\Test;
 use App\Question;
 use App\Question_Test;
+use App\Answer_Question_Test;
+
 
 class TestController extends Controller
 {
@@ -217,4 +219,54 @@ class TestController extends Controller
         return redirect()->route('show_questions_to_add', $test->id)
                          ->with('info', 'Pregunta '.$question->id.' agregada con éxito al cuestionario '.$test->id);
     }
+
+
+
+    public function calification(Request $request, $test_id, $user_id)
+    {
+        $user = Auth::user();
+        $test = Test::find($test_id);
+
+        $qt_elements = Question_Test::where('test_id', $test_id)->get();
+        $qt_ids = $qt_elements->map(function ($qt, $key) {
+            return $qt->id;
+        });
+        
+        $aqt_elements = Answer_Question_Test::whereIn('question_test_id', $qt_ids)->get();        
+        $aqt_ids = $aqt_elements->map(function ($aqt, $key) {
+            return $aqt->id;
+        });
+        
+        $aqtu_elements = $user->answer_question_tests()->whereIn('answer_question_test_id', $aqt_ids)->get();
+        $answers_points = $aqtu_elements->map(function ($aqtu, $key) {
+            return $aqtu->pivot->answer_points;
+        });
+        
+        $student_points = $answers_points->sum();
+        $total_questions_points = Question_Test::where('test_id', $test_id)->sum('question_value');
+        
+        $student_calification = $student_points*$test->test_value/$total_questions_points;
+        if($student_calification >= $test->min_to_approve)
+        {
+            $approve = true;
+        }
+        else
+        {
+            $approve = false;
+        }
+
+        $user->tests()->attach($test->id, ['user_points' => $student_points, 'total_points' => $total_questions_points, 'calification' => $student_calification, 'approved' => $approve]);
+        
+        dd($student_calification);
+    }
+
+
+    public function show_test_student($test_id)
+    {
+        $test = Test::find($test_id);
+        $test_elements = $test->users()->where('test_id', $test->id)->get();
+        
+        return view('admin.tests.show_users', compact('test', 'test_elements'));
+    }
+
 }

@@ -36,9 +36,13 @@ route::get('all_answers_list',                                  'Admin\AnswerCon
 Route::get('test/{id}/questions',                               'Admin\TestController@show_questions_test')->where(["id" => "[0-9]+"])->name('questions_test');
 
 Route::get('test/{id}/show_questions',                          'Admin\TestController@show_questions_to_test')->where(["id" => "[0-9]+"])->name('show_questions_to_add');
-Route::Post('test/{test_id}/add_question/{quest_id}',           'Admin\TestController@add_questions_to_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+"])->name('add_questions_to_test');
+Route::post('test/{test_id}/add_question/{quest_id}',           'Admin\TestController@add_questions_to_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+"])->name('add_questions_to_test');
+Route::post('test/{test_id}/calification/{user_id}',            'Admin\TestController@calification')->where(["test_id" => "[0-9]+", "user_id" => "[0-9]+"])->name('calification');
+Route::get('test/{test_id}/users',                              'Admin\TestController@show_test_student')->where(["test_id" => "[0-9]+"])->name('show_test_student');
+
+
 
 Route::get('test/{test_id}/question/{quest_id}/show_answers',   'Admin\AnswerController@show_answers_to_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+"])->name('show_answers_to_add');
-Route::Post('test/question/add_answer/{answer_id}',             'Admin\AnswerController@add_answers_to_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+", "answer_id" => "[0-9]+"])->name('add_answers_to_test');
+Route::post('test/question/add_answer/{answer_id}',             'Admin\AnswerController@add_answers_to_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+", "answer_id" => "[0-9]+"])->name('add_answers_to_test');
 
-Route::Post('test/question/correct_answer/{id}',                'Admin\AnswerController@update_aqt_table')->where(["test_id" => "[0-9]+"])->name('select_correct_answers');
+Route::post('test/question/correct_answer/{id}',                'Admin\AnswerController@update_aqt_table')->where(["test_id" => "[0-9]+"])->name('select_correct_answers');

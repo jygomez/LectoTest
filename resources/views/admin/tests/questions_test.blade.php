@@ -74,11 +74,11 @@
                                 @endcan
                             </tr>
                         @empty
-                        <div class="col-6">
-                            No hay preguntas para mostrar.
-                        </div>
+                            <div class="col-6">
+                                No hay preguntas para mostrar.
+                            </div>
+                        @endforelse
                     </tbody>
-                    @endforelse
                 </table>
 
                 <a href="{{route('tests.show', $test->id)}}" class="pull-right"><small>Volver a detalles del cuestionario</small></a>
