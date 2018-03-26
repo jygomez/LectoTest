@@ -28,23 +28,48 @@ class StudentController extends Controller
         $user = Auth::user();
 
         $test = Test::find($id);
+
         $questions = Question::whereHas('tests', function($query) use($id){
             $query->where('test_id', $id);
         })->get();
-        
-        $qt = Question_Test::where('test_id', $id)->get();
+
+        $qt_elements = Question_Test::where('test_id', $id)->get();
+        // dd($qt_elements);
+
+        // $qt_question_ids = $qt_elements->map(function ($qta, $key) {
+        //     return $qta->question_id;
+        // });
+
+        // $questions_elem = Question::where('id', $qt_answer_ids)->get();
+        // dd($questions_elem);
+
+
+
+        // $qt_ids = $qt_elements->map(function ($qt, $key) {
+        //     return $qt->id;
+        // });
+
+        // $qt_ans = Answer::whereHas('question_tests', function($query) use($qt_ids){
+        //     $query->where('question_test_id', $qt_ids);
+        // })->get();
+        // dd($qt_ans);
+
+
+
+
         
         $qt_answers = collect([]);
         
-        foreach($qt as $qt)
+        foreach($qt_elements as $qt)
         {
             $qt_id = $qt->id;
             $qt_ans = Answer::whereHas('question_tests', function($query) use($qt_id){
                 $query->where('question_test_id', $qt_id);
             })->get();
-
+            
             $qt_answers->push($qt_ans);
         }
+        // dd($qt_answers);
 
         return view('web.show_test', compact('test', 'questions', 'qt_answers', 'user'));
     }

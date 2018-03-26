@@ -8,7 +8,7 @@
                 <div class='panel panel-primary'>
                     
                     <div class='panel-heading'>
-                        <h4>Detalles de la pregunta <strong>{{$answer->answer_name}}</strong></h4>
+                        <h4>Detalles de la respuesta <strong>{{$answer->answer_name}}</strong></h4>
                     </div>                
                 
 
