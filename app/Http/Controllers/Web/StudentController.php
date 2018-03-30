@@ -34,32 +34,8 @@ class StudentController extends Controller
         })->get();
 
         $qt_elements = Question_Test::where('test_id', $id)->get();
-        // dd($qt_elements);
-
-        // $qt_question_ids = $qt_elements->map(function ($qta, $key) {
-        //     return $qta->question_id;
-        // });
-
-        // $questions_elem = Question::where('id', $qt_answer_ids)->get();
-        // dd($questions_elem);
-
-
-
-        // $qt_ids = $qt_elements->map(function ($qt, $key) {
-        //     return $qt->id;
-        // });
-
-        // $qt_ans = Answer::whereHas('question_tests', function($query) use($qt_ids){
-        //     $query->where('question_test_id', $qt_ids);
-        // })->get();
-        // dd($qt_ans);
-
-
-
-
         
         $qt_answers = collect([]);
-        
         foreach($qt_elements as $qt)
         {
             $qt_id = $qt->id;
@@ -69,30 +45,28 @@ class StudentController extends Controller
             
             $qt_answers->push($qt_ans);
         }
-        // dd($qt_answers);
-
+        
         return view('web.show_test', compact('test', 'questions', 'qt_answers', 'user'));
     }
 
 
     public function save_taken_test(Request $request, $test_id, $quest_id)
     {
-        $qt = Question_Test::where([
+        $qt_element = Question_Test::where([
             ['test_id', $test_id],
             ['question_id', $quest_id],
         ])->first();
 
-        $correct_count = Answer_Question_Test::where('question_test_id', $qt->id)->sum('correct_answer');
+        $correct_count = Answer_Question_Test::where('question_test_id', $qt_element->id)->sum('correct_answer');
         
         if($request->selected_answers != null)
         {
             foreach($request->selected_answers as $answer)
-            {
+            { 
                 $aqt_element = Answer_Question_Test::where([
-                    ['question_test_id', $qt->id],
+                    ['question_test_id', $qt_element->id],
                     ['answer_id', $answer],
                     ])->first();
-                    
                 $user = Auth::user();
                 $user->answer_question_tests()->attach($aqt_element->id, [
                     'selected_answers' => 1,
@@ -104,7 +78,7 @@ class StudentController extends Controller
                 if($correct_ans === $aqtu_element->pivot->selected_answers)
                 {
                     $user->answer_question_tests()->updateExistingPivot($aqt_element->id, [
-                        'answer_points' => $qt->question_value/$correct_count,
+                        'answer_points' => $qt_element->question_value/$correct_count,
                         ]);
                 }
                 else
@@ -117,6 +91,9 @@ class StudentController extends Controller
         }
         else
             return 'Debes seleccionar al menos una respuesta';
+
+        return back()->with('info', 'Enviado');
+        
     }
 
 

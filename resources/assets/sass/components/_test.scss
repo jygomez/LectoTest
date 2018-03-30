@@ -1,0 +1,12 @@
+.wizard {
+    > .content {
+        height: auto;
+
+        > .body {
+            left: none;
+            position: relative;
+            height: auto; 
+            width: 100%;
+        }
+    }
+}
