@@ -23,11 +23,11 @@ class StudentController extends Controller
     }
 
 
-    public function show_test($id)
+    public function show_test($id, Request $request) //pasando el request como parametro en este metodo GET se accede a la URL que se va a dibujar.
     {
         $user = Auth::user();
-
         $test = Test::find($id);
+        $current_question = ($request->current_question) ? : 0;
 
         $questions = Question::whereHas('tests', function($query) use($id){
             $query->where('test_id', $id);
@@ -46,7 +46,7 @@ class StudentController extends Controller
             $qt_answers->push($qt_ans);
         }
         
-        return view('web.show_test', compact('test', 'questions', 'qt_answers', 'user'));
+        return view('web.show_test', compact('test', 'questions', 'qt_answers', 'user', 'current_question'));
     }
 
 
@@ -88,11 +88,24 @@ class StudentController extends Controller
                         ]);
                 }
             }
+
+            $next_question_id = (intval($request->next_quest_id) > 0) ? $request->next_quest_id : null;
+
+            // Si viene null lo que tienes que hacer es un redirect a otra pantalla donde diga gracias 
+            if($next_question_id) 
+            {
+                return redirect()->route('show_test', ['id' => $test_id, 'current_question' => $next_question_id])
+                                 ->with('info', 'éxito');
+            } 
+            else 
+            {
+                return 'gracias';
+            }
+
+
         }
         else
             return 'Debes seleccionar al menos una respuesta';
-
-        return back()->with('info', 'Enviado');
         
     }
 

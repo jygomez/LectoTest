@@ -83,20 +83,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 $(document).ready(function () {
+
+    var currentQuestion = $('#show_test').data('currentQuestion'); // no entiendo de donde sale el data ni el 'currenrQuestion' que tiene dentro
+    console.log(currentQuestion);
+
     function submitQuestion(index) {
         var buildIdDiv = 'show_test-p-' + index;
         var currentDiv = $('#' + buildIdDiv + ' form');
-        console.log(currentDiv);
         currentDiv.submit();
     }
 
     $("#show_test").steps({
+        startIndex: currentQuestion == 0 ? 0 : currentQuestion - 1, // no entiendo este if
+
         onStepChanging: function onStepChanging(event, currentIndex, newIndexe) {
+            if (currentIndex < newIndexe) {
+                submitQuestion(currentIndex);
+            }
             return true;
-            submitQuestion(currentIndex - 1);
         },
+
         onFinishing: function onFinishing(event, currentIndex) {
-            console.log('on finishing');
+            submitQuestion(currentIndex);
             return true;
         }
     });
