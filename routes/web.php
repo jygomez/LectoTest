@@ -19,6 +19,8 @@ Route::get('home',                                              'HomeController@
 Route::get('test_list',                                         'Web\WebController@test_list')->name('test_list');
 Route::get('take_test/{id}',                                    'Web\StudentController@show_test')->where(["id" => "[0-9]+"])->name('show_test');
 Route::post('take_test/{test_id}/question/{quest_id}',          'Web\StudentController@save_taken_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+"])->name('take_test');
+Route::post('save_answer',                                      'Web\StudentController@save_answer')->name('save_answer');
+
 
 Route::get('question_tests/{id}',                               'Web\PageController@question_tests')->where(["id" => "[0-9]+"])->name('question_tests');
 Route::get('user_questions/{id}',                               'Web\PageController@user_questions')->where(["id" => "[0-9]+"])->name('user_questions');
@@ -37,7 +39,7 @@ Route::get('test/{id}/questions',                               'Admin\TestContr
 
 Route::get('test/{id}/show_questions',                          'Admin\TestController@show_questions_to_test')->where(["id" => "[0-9]+"])->name('show_questions_to_add');
 Route::post('test/{test_id}/add_question/{quest_id}',           'Admin\TestController@add_questions_to_test')->where(["test_id" => "[0-9]+", "quest_id" => "[0-9]+"])->name('add_questions_to_test');
-Route::post('test/{test_id}/calification/{user_id}',            'Admin\TestController@calification')->where(["test_id" => "[0-9]+", "user_id" => "[0-9]+"])->name('calification');
+Route::get('test/{test_id}/calification',                      'Admin\TestController@calification')->where(["test_id" => "[0-9]+"])->name('calification');
 Route::get('test/{test_id}/users',                              'Admin\TestController@show_test_student')->where(["test_id" => "[0-9]+"])->name('show_test_student');
 
 

@@ -9,13 +9,13 @@
                     </div>
 
                     <div class='panel-body'>
-                        <div id="show_test" data-current-question="{{$current_question}}"> 
+                        <div id="show_test" data-testid="{{ $test->id }}">
                             @foreach($questions as $quest => $question)                                                           
                                 <h1>Pregunta {{$question->id}}</h1>
                                 <div>
                                     {!! Form::open(['route'=>['take_test', $test->id, $question->id], 'method'=>'POST']) !!}
-                                    <input type='hidden' name='test_{{$test->id}}' id='test_{{$test->id}}' value={{$test->id}}>
-                                    <input type='hidden' name='quest_{{$question->id}}' id='quest_{{$question->id}}' value={{$question->id}}>
+                                    <input type='hidden' name='test_id' id='test_id_{{$test->id}}' value={{$test->id}}>
+                                    <input type='hidden' name='question_id' id='question_id_{{$question->id}}' value={{$question->id}}>
                                     @if (!$loop->last)
                                         <input type='hidden' name='next_quest_id' id='next_quest_id' value={{$questions[$quest + 1]->id}}>
                                     @endif

@@ -222,7 +222,7 @@ class TestController extends Controller
 
 
 
-    public function calification(Request $request, $test_id, $user_id)
+    public function calification(Request $request, $test_id)
     {
         $user = Auth::user();
         $test = Test::find($test_id);
@@ -257,7 +257,7 @@ class TestController extends Controller
 
         $user->tests()->attach($test->id, ['user_points' => $student_points, 'total_points' => $total_questions_points, 'calification' => $student_calification, 'approved' => $approve]);
         
-        dd($student_calification);
+	    return view('admin.tests.calification');
     }
 
 
