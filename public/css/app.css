@@ -8679,5 +8679,6 @@ button.close {
 .home__slider {
   border-radius: 25px;
   overflow: hidden;
+  margin-bottom: 2em;
 }
 

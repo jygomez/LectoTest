@@ -28,6 +28,8 @@
                     <li><a href="{{ route('register') }}">Registro</a></li>
                 @else
                     @can('is_admin')
+                        <li><a href="{{route('posts.index')}}">Foro</a></li>
+                        <li><a href="{{route('sliders.index')}}">Sliders</a></li>
                         <li><a href="{{route('tests.index')}}">Cuestionarios</a></li>
                         <li><a href="{{route('questions.index')}}">Preguntas</a></li>
                         <li><a href="{{route('answers.index')}}">Respuestas</a></li>

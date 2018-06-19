@@ -20,6 +20,8 @@
 
     @include('layouts.partials.menu')
 
+    @include('layouts.partials.messages')
+
     @yield('content')
 
 

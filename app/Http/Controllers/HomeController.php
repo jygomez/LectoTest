@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Slider;
+use App\Post;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +26,11 @@ class HomeController extends Controller
      */
     public function home()
     {
-        return view('home');
+
+        $sliders = Slider::all();
+        $post = Post::where('active', 1)->first();
+        return view('home',  compact('sliders', 'post'));
+
+              
     }
 }

@@ -1,29 +1,28 @@
 @extends('layouts.home')
 
 @section('content')
+<div class="row marketing">
+        <div class="col-md-10 col-md-offset-1">
     <div class="home__slider">
 
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                @foreach($sliders as $index => $slider)
+                <li data-target="#carousel-example-generic" data-slide-to="{{ $index }}" @if ($loop->first) class="active" @endif></li>
+                @endforeach
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img src="{{ asset('storage/slider/01.jpg') }}">
+                @foreach($sliders as $slider)
+                <div class="item  @if ($loop->first) active @endif">             
+                    <img src="{{ Storage::url($slider->url) }}">
                     <!--<div class="carousel-caption">
                     aqui va una descripción
                     </div>-->
                 </div>
-                <div class="item">
-                    <img src="{{ asset('storage/slider/02.jpg') }}">
-                    <!--<div class="carousel-caption">
-                    aqui va una descripción
-                    </div>-->
-                </div>
+                @endforeach
             </div>
 
             <!-- Controls -->
@@ -38,28 +37,34 @@
         </div>
     </div>
 
-    <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+    
+       
+        <div class="panel panel-default">
+             <div class="panel-heading">Tema del día</div>
+            <div class="panel-body">
+            <h2>{{ $post->title}}</h2>
+            <p>{{ $post->body }}</p>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+            <hr />
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            {!! Form::open(['route' => 'comments.store']) !!}
+            <input type='hidden' name='post_id' id='post_id' value="{{$post->id}}">
+                <div class="form-group">
+                    {{ Form::label('body', 'Comentario') }}
+                    {{ Form::textarea('body', null, ['class'=>'form-control', 'id'=>'body']) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::submit('Enviar comentario', ['class'=>'btn btn-sm btn-primary pull-right']) }}
+                </div>
+                {!! Form::close() !!}
+            </div>
         </div>
 
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
+ </div>
+       
     </div>
 
     <footer class="footer">

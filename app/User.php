@@ -4,6 +4,8 @@ namespace App;
 
 use App\Profile;
 use App\Test;
+use App\Post;
+use App\Comment;
 use App\Answer_Question_Test;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,6 +67,16 @@ class User extends Authenticatable
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 
