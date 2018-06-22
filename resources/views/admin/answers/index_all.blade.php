@@ -49,7 +49,8 @@
                 </tbody>
             </table>                        
         @endif
-
+        
+        
         {{$answer_list->render()}}
 
         <p>
