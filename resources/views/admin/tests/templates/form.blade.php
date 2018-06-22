@@ -20,7 +20,7 @@
 
 <div class="form-group">
     {{ Form::label('time', 'Tiempo') }}
-    {{ Form::time('time', null, ['class'=>'form-control', 'id'=>'time']) }}
+    {{ Form::time('time', null, ['class'=>'form-control', 'id'=>'time-control-input']) }}
 </div>
 
 <div class="form-group">

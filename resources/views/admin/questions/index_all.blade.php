@@ -38,20 +38,18 @@
 
                             <td>{{$question->question_text}}</td>
 
-                            <td width='25%'>
+                            <td width='25%' class="text-center">
+                            {!! Form::open(['route' => ['questions.destroy', $question->id], 'method'=>'DELETE']) !!}
+                            <div class="btn-group" role="group" aria-label="...">
                                 <a href="{{route('questions.show', $question->id)}}" class='btn btn-sm btn-default'>ver</a>
-                                
                                 @can('update_question', $question)
                                     <a href="{{route('questions.edit', $question->id)}}" class='btn btn-sm btn-default'>editar</a>
-
-                                    <td width='5%'>
-                                        {!! Form::open(['route' => ['questions.destroy', $question->id], 'method'=>'DELETE']) !!}
-                                            <button class='btn btn-sm btn-danger'>
-                                                eliminar
-                                            </button>
-                                        {!! Form::close() !!}
-                                    </td>
+                                    <button class='btn btn-sm btn-danger'>
+                                        eliminar
+                                    </button>
                                 @endcan
+                            </div>
+                            {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach

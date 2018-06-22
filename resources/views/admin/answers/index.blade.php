@@ -29,17 +29,17 @@
 
                             <td>{{$answer->answer_text}}</td>
 
-                            <td width='25%'>
+                            <td width='25%' class="text-center">
+                            {!! Form::open(['route' => ['answers.destroy', $answer->id], 'method'=>'DELETE']) !!}
+                            <div class="btn-group" role="group" aria-label="...">
                                 <a href="{{route('answers.show', $answer->id)}}" class='btn btn-sm btn-default'>ver</a>
                                 <a href="{{route('answers.edit', $answer->id)}}" class='btn btn-sm btn-default'>editar</a>
-                            
-                                <td width='5%'>
-                                    {!! Form::open(['route' => ['answers.destroy', $answer->id], 'method'=>'DELETE']) !!}
-                                        <button class='btn btn-sm btn-danger'>
-                                            eliminar
-                                        </button>
-                                    {!! Form::close() !!}
-                                </td>
+
+                                <button class='btn btn-sm btn-danger'>
+                                    eliminar
+                                </button>
+                            </div>
+                            {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach

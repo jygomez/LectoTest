@@ -179,10 +179,12 @@ class AnswerController extends Controller
             ['question_id', $quest_id],
         ])->first();
         
-        $aqt_answer_id = Answer_Question_Test::where('question_test_id', $qt_element->id)->select('answer_id')->get();
+        $aqt_answer_id = Answer_Question_Test::where('question_test_id', $qt_element->id)->select('answer_id', 'correct_answer')->get();
         
         // Devuelve la colección de respuestas de la tabla Answers a partir de los id que se pasan desde la variable de arriba (aqt_answer_id).
-        $answers = Answer::find($aqt_answer_id); 
+        $answers = Answer::find($aqt_answer_id);
+        
+        
         
         // $aqt_id = Answer_Question_Test::where('question_test_id', $qt_element->id)->select('id');
 

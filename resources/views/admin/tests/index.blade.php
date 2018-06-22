@@ -29,17 +29,19 @@
 
                             <td>{{$test->test_name}}</td>
 
-                            <td>
+                            <td class="text-center">
+                            {!! Form::open(['route' => ['tests.destroy', $test->id], 'method'=>'DELETE']) !!}
+                            <div class="btn-group" role="group" aria-label="...">
+
                                 <a href="{{route('tests.show', $test->id)}}" class='btn btn-sm btn-default'>ver</a>
                                 <a href="{{route('tests.edit', $test->id)}}" class='btn btn-sm btn-default'>editar</a>
-                                
-                                <td>
-                                    {!! Form::open(['route' => ['tests.destroy', $test->id], 'method'=>'DELETE']) !!}
-                                        <button class='btn btn-sm btn-danger'>
-                                            eliminar
-                                        </button>
-                                    {!! Form::close() !!}
-                                </td>
+                                   
+                                <button class='btn btn-sm btn-danger'>
+                                    eliminar
+                                </button>
+                            </div>          
+                            {!! Form::close() !!}
+                    
                             </td>
                         </tr>
                     @endforeach

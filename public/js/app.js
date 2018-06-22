@@ -983,7 +983,16 @@ window.Vue = __webpack_require__(34);
 Vue.component('example', __webpack_require__(37));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app',
+    data: {
+        message: 'Hello Vue.js!'
+    },
+    methods: {
+        reverseMessage: function reverseMessage() {
+            window.alert('XXXX');
+            this.message = this.message.split('').reverse().join('');
+        }
+    }
 });
 
 /***/ }),
