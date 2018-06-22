@@ -2,9 +2,6 @@
 
 @section('content')
 
-    <div class='container'>
-        <div class='row'>
-            <div class='col-md-8 col-md-offset-2'>
                 <div class='panel panel-primary'>
                     <div class='panel-heading'>
                         <h4>Detalles del cuestionario {{$test->id}}: <strong>"{{$test->test_name}}"</strong></h4>
@@ -67,9 +64,6 @@
                         <div class='text-center'><a href="{{route('show_test_student', $test->id)}}">Ver examinados</a></div>
                     </div>
                 </div>
-                
-            </div>
-        </div>
-    </div>
+
 
 @stop

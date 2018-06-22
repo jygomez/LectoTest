@@ -1,5 +1,5 @@
-<!-- Mostrando los mensajes que hemos asignados a la variable de sesión 'info' (ver TestController) -->
-@if(session('info')) 
+        <!-- Mostrando los mensajes que hemos asignados a la variable de sesión 'info' (ver TestController) -->
+        @if(session('info')) 
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">

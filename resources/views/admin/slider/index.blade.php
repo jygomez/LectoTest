@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    
-<div class="container">
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -24,12 +22,11 @@
         <td>
           <img src="{{ Storage::url($slider->url) }}" class="img-responsive">
         </td>
-        <td>
+        <td class="text-center">
             <a onclick='return confirm("¿Estas seguro?");' href="{{route('delete_slider', ['id' =>$slider->id ])}}" class="btn btn-danger btn-xs" type="button">&times; Eliminar</a>
         </td>
     </tr>
     @endforeach
   </table>
-</div>
 </div>
 @stop

@@ -15,13 +15,13 @@
 </head>
 <body>
     <div id="app">
+        <div class="container">
+            @include('layouts.partials.menu')
 
-        @include('layouts.partials.menu')
-
-        @include('layouts.partials.messages')
-        
-        @yield('content')
-
+            @include('layouts.partials.messages')
+            
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->

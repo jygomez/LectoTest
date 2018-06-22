@@ -2,9 +2,7 @@
 
 @section('content')
 
-<div class='container'>
-    <div class='col-md-8 col-md-offset-2'>    
-        <div class="panel panel-primary">
+
 
             <div class="panel-heading panel-title">
                 Preguntas del cuestionario <strong>"{{$test->test_name}}"</strong>
@@ -88,9 +86,5 @@
                 @endcan
             </div>
 
-        </div>
-    </div>
-
-</div>
 
 @stop

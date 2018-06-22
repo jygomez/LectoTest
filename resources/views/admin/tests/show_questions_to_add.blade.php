@@ -2,9 +2,7 @@
 
 @section('content')
 
-<div class='container'>
-    <div class='row'>
-        <div class='col-md-8 col-md-offset-2'>
+
             <div class='panel panel-primary'>
 
                 <div class='panel-heading'>
@@ -92,8 +90,5 @@
                     <a href="{{route('questions_test', $test->id)}}" class='btn btn-sm btn-primary pull-right'>Guardar</a>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
 @stop

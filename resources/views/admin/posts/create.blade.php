@@ -2,8 +2,6 @@
 
 @section('content')
     
-<div class="container">
-
 <div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">Crear Tema</div>
@@ -13,6 +11,5 @@
   {!! Form::close() !!}
   </div>
   <!-- Table -->
-</div>
 </div>
 @stop

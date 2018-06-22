@@ -2,7 +2,7 @@
 
 @section('content')
     
-<div class="container">
+
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
@@ -13,6 +13,5 @@
   {!! Form::close() !!}
   </div>
   <!-- Table -->
-</div>
 </div>
 @stop

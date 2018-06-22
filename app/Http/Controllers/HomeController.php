@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Slider;
 use App\Post;
+use App\Video;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,8 @@ class HomeController extends Controller
 
         $sliders = Slider::all();
         $post = Post::where('active', 1)->first();
-        return view('home',  compact('sliders', 'post'));
+        $videos = Video::all();
+        return view('home',  compact('sliders', 'post', 'videos'));
 
               
     }

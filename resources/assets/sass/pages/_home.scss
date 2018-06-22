@@ -1,7 +1,29 @@
-.home {
+.Home {
+  margin: 0 auto 2em;
+  display: block;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  
   &__slider{
-    border-radius: 25px;
     overflow: hidden;
-    margin-bottom: 2em;
+    border-radius: 25px 25px 0 0;
+  }
+
+  &__section {
+    padding: 3em;
+    &__blog {
+      background: $brand-primary;
+      color: #fff;
+    }
+
+    &__videos {
+      background: #fff;
+      border-radius: 0 0 25px 25px;
+    
+    }
+
+    &__image {
+      margin: 0 auto;
+    }
   }
 }

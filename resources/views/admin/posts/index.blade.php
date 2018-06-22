@@ -2,11 +2,9 @@
 
 @section('content')
     
-<div class="container">
-
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Sliders Página de inicio
+  <div class="panel-heading">Temas página de inicio
     <a href="{{route('posts.create')}}" class='btn btn-sm btn-primary pull-right'>Crear</a>
   </div>
   <div class="panel-body">
@@ -34,7 +32,7 @@
             </a>
         </td>
         <td width='25%'>
-        {!! Form::open(['route' => ['posts.destroy', $post->id], 'method'=>'DELETE']) !!}
+        {!! Form::open(['route' => ['posts.destroy', $post->id], 'method'=>'DELETE', 'class' => 'text-center']) !!}
             <div class="btn-group" role="group" aria-label="...">
                 @if($post->active)
                 <a href="#" class='btn btn-sm btn-success'>Activo</a>
@@ -51,6 +49,5 @@
     @endforeach
     </tbody>
   </table>
-</div>
 </div>
 @stop

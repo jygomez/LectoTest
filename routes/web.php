@@ -28,6 +28,7 @@ Route::get('user_questions/{id}',                               'Web\PageControl
 
 // ADMIN
 route::resource('sliders',                                      'Admin\SliderController');
+route::resource('videos',                                      'Admin\VideoController');
 route::resource('tests',                                        'Admin\TestController');
 route::resource('questions',                                    'Admin\QuestionController');
 route::resource('answers',                                      'Admin\AnswerController');

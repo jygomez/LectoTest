@@ -1,5 +1,5 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded static-top">
-    <div class="container">
+<nav class="Menu navbar navbar-toggleable-md navbar-inverse bg-primary static-top">
+    <div class="container-fluid">
         <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
@@ -11,7 +11,9 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">LectoTest</a>
+            <a class="navbar-brand"  href="{{ url('/') }}">
+                <img alt="Brand" src="{{ Storage::url('home/exam.png') }}">
+            </a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -28,6 +30,7 @@
                     <li><a href="{{ route('register') }}">Registro</a></li>
                 @else
                     @can('is_admin')
+                        <li><a href="{{route('videos.index')}}">Videos</a></li>
                         <li><a href="{{route('posts.index')}}">Foro</a></li>
                         <li><a href="{{route('sliders.index')}}">Sliders</a></li>
                         <li><a href="{{route('tests.index')}}">Cuestionarios</a></li>
